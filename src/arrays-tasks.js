@@ -396,8 +396,15 @@ function generateOdds(len) {
  *   getElementByIndices(['one','two','three'], [2]) => 'three'  (arr[2])
  *   getElementByIndices([[[ 1, 2, 3]]], [ 0, 0, 1 ]) => 2        (arr[0][0][1])
  */
-function getElementByIndices(/* arr, indices */) {
-  throw new Error('Not implemented');
+function getElementByIndices(arr, indices) {
+  let newArr = [...arr];
+
+  indices.map((el) => {
+    newArr = newArr[el];
+    return newArr;
+  });
+
+  return newArr;
 }
 
 /**
@@ -463,8 +470,16 @@ function getIdentityMatrix(n) {
  *    getIndicesOfOddNumbers([2, 4, 6, 8, 10]) => []
  *    getIndicesOfOddNumbers([11, 22, 33, 44, 55]) => [0, 2, 4]
  */
-function getIndicesOfOddNumbers(/* numbers */) {
-  throw new Error('Not implemented');
+function getIndicesOfOddNumbers(numbers) {
+  const newArr = [];
+  numbers.filter((n, index) => {
+    if (n % 2) {
+      newArr.push(index);
+    }
+    return newArr;
+  });
+
+  return newArr;
 }
 
 /**
@@ -495,8 +510,16 @@ function getHexRGBValues(/* arr */) {
  *   getMaxItems([ 10, 2, 7, 5, 3, -5 ], 3) => [ 10, 7, 5 ]
  *   getMaxItems([ 10, 10, 10, 10 ], 3) => [ 10, 10, 10 ]
  */
-function getMaxItems(/* arr, n */) {
-  throw new Error('Not implemented');
+function getMaxItems(arr, n) {
+  if (arr.length <= n) {
+    return arr.sort((a, b) => {
+      return b - a;
+    });
+  }
+  const newArr = [...arr];
+  newArr.splice(arr.indexOf(Math.min(...arr)), 1);
+
+  return getMaxItems(newArr, n);
 }
 
 /**
@@ -511,8 +534,10 @@ function getMaxItems(/* arr, n */) {
  *    findCommonElements(['a', 'b', 'c'], ['b', 'c', 'd']) => [ 'b', 'c' ]
  *    findCommonElements([1, 2, 3], ['a', 'b', 'c']) => []
  */
-function findCommonElements(/* arr1, arr2 */) {
-  throw new Error('Not implemented');
+function findCommonElements(arr1, arr2) {
+  return arr1.filter((el) => {
+    return arr2.includes(el);
+  });
 }
 
 /**
@@ -526,8 +551,26 @@ function findCommonElements(/* arr1, arr2 */) {
  *    findLongestIncreasingSubsequence([3, 10, 2, 1, 20]) => 2
  *    findLongestIncreasingSubsequence([50, 3, 10, 7, 40, 80]) => 3
  */
-function findLongestIncreasingSubsequence(/* nums */) {
-  throw new Error('Not implemented');
+function findLongestIncreasingSubsequence(nums) {
+  let current = 1;
+  let max = 0;
+  let prev = nums[0];
+
+  nums.map((curr) => {
+    if (curr > prev) {
+      current += 1;
+    } else {
+      current = 1;
+    }
+    if (current > max) {
+      max = current;
+    }
+    prev = curr;
+
+    return prev;
+  });
+
+  return max;
 }
 
 /**
